@@ -1,0 +1,484 @@
+/* ========================================
+   VIDEO SECTION - PREMIUM EXPERIENCE
+   ======================================== */
+
+.video-section {
+  position: relative;
+  padding: 5rem 2rem;
+  background: #f0ecec;
+  overflow: hidden;
+}
+
+.video-container {
+  width: 100%;
+  align-items: center;
+  animation: containerSlideUp 0.8s ease-out;
+}
+
+@keyframes containerSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Video Wrapper */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(153, 135, 117, 0.3);
+  animation: videoScaleIn 0.8s 0.2s ease-out both;
+}
+
+@keyframes videoScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Video Overlay */
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(45, 45, 45, 0.5) 0%, rgba(212, 165, 116, 0.2) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Video Content */
+.video-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.video-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+  animation: titleFade 1s 0.4s ease-out both;
+}
+
+@keyframes titleFade {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.video-subtitle {
+  font-size: 1.3rem;
+  color: #D4A574;
+  letter-spacing: 1.5px;
+  margin-bottom: 2rem;
+  font-weight: 300;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  animation: subtitleFade 1s 0.5s ease-out both;
+}
+
+@keyframes subtitleFade {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.video-cta {
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, #D4A574 0%, #c49460 100%);
+  color: #2D2D2D;
+  border: none;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 8px 24px rgba(212, 165, 116, 0.4);
+  position: relative;
+  overflow: hidden;
+  pointer-events: all;
+  animation: buttonFade 1s 0.6s ease-out both;
+}
+
+@keyframes buttonFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.video-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left 0.5s ease;
+}
+
+.video-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(212, 165, 116, 0.5);
+}
+
+.video-cta:hover::before {
+  left: 100%;
+}
+
+/* Video Controls */
+.video-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 4;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  padding: 2rem 1.5rem 1.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.video-wrapper:hover .video-controls {
+  opacity: 1;
+}
+
+/* Progress Bar */
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #D4A574 0%, #c49460 100%);
+  transition: width 0.1s linear;
+  border-radius: 2px;
+}
+
+/* Controls Bottom */
+.controls-bottom {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.control-btn {
+  background: rgba(212, 165, 116, 0.8);
+  border: none;
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  backdrop-filter: blur(10px);
+}
+
+.control-btn:hover {
+  background: #D4A574;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(212, 165, 116, 0.4);
+}
+
+.video-info {
+  margin-left: auto;
+  color: #ffffff;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+}
+
+/* Side Content */
+.video-side-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: sideContentSlideIn 0.8s 0.3s ease-out both;
+}
+
+@keyframes sideContentSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+/* Decorative Elements */
+.video-decoration {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.video-decoration.left {
+  top: -20%;
+  left: -10%;
+  background: radial-gradient(circle, rgba(212, 165, 116, 0.15) 0%, transparent 70%);
+}
+
+.video-decoration.right {
+  bottom: -10%;
+  right: -5%;
+  background: radial-gradient(circle, rgba(212, 165, 116, 0.1) 0%, transparent 70%);
+}
+
+/* ======== RESPONSIVE DESIGN ======== */
+@media (max-width: 1024px) {
+  .video-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .video-wrapper {
+    aspect-ratio: 16 / 9;
+  }
+
+  .video-side-content {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .side-text {
+    padding: 1rem;
+  }
+
+  .side-text h3 {
+    font-size: 0.95rem;
+  }
+
+  .side-text p {
+    font-size: 0.85rem;
+  }
+
+  .video-title {
+    font-size: 2.5rem;
+  }
+
+  .video-subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .video-section {
+    padding: 3rem 1rem;
+  }
+
+  .video-container {
+    gap: 2rem;
+  }
+
+  .video-wrapper {
+    aspect-ratio: 16 / 10;
+    border-radius: 16px;
+  }
+
+  .video-content {
+    padding: 2rem;
+  }
+
+  .video-title {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.8rem;
+  }
+
+  .video-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .video-cta {
+    padding: 0.8rem 1.8rem;
+    font-size: 0.85rem;
+  }
+
+  .controls-bottom {
+    gap: 0.8rem;
+  }
+
+  .control-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .video-info {
+    font-size: 0.8rem;
+  }
+
+  .video-decoration {
+    width: 300px;
+    height: 300px;
+  }
+
+  .video-decoration.left {
+    top: 0;
+    left: -15%;
+  }
+
+  .video-decoration.right {
+    bottom: 0;
+    right: -15%;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-section {
+    padding: 2rem 0.8rem;
+  }
+
+  .video-container {
+    gap: 1.5rem;
+  }
+
+  .video-wrapper {
+    aspect-ratio: 16 / 11;
+    border-radius: 12px;
+  }
+
+  .video-content {
+    padding: 1.5rem;
+  }
+
+  .video-title {
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.6rem;
+  }
+
+  .video-subtitle {
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .video-cta {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+  }
+
+  .video-side-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .side-text {
+    padding: 0.8rem;
+  }
+
+  .side-text h3 {
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .side-text p {
+    font-size: 0.75rem;
+  }
+
+  .video-controls {
+    padding: 1rem 0.8rem 0.8rem;
+  }
+
+  .progress-bar {
+    height: 3px;
+    margin-bottom: 0.8rem;
+  }
+
+  .controls-bottom {
+    gap: 0.6rem;
+  }
+
+  .control-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+
+  .video-info {
+    font-size: 0.7rem;
+    margin-left: 0.5rem;
+  }
+
+  .video-decoration {
+    width: 250px;
+    height: 250px;
+  }
+
+  .video-decoration.left {
+    top: 10%;
+    left: -20%;
+  }
+
+  .video-decoration.right {
+    bottom: 10%;
+    right: -20%;
+  }
+}

@@ -1,0 +1,28 @@
+/* MEN PAGE - hero-only styles (product styles are in Products.css) */
+
+.men-page { width: 100%; background: #f5f5f5; }
+
+.men-hero {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  background: linear-gradient(135deg, #2D2D2D 0%, #1a1a1a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.men-overlay {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle, rgba(212,165,116,0.08) 0%, transparent 70%);
+}
+
+.men-content { position: relative; z-index:2; text-align:center; color:#fff; }
+
+.men-title { font-size: 3rem; font-weight:800; margin:0 0 8px; background:linear-gradient(135deg,#D4A574,#c49460); -webkit-background-clip:text; color:transparent; }
+.men-subtitle { font-size:1.05rem; font-weight:300; opacity:0.95; }
+
+@keyframes fadeInUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+@media (max-width:768px){ .men-hero{height:300px} .men-title{font-size:2rem} }

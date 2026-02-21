@@ -1,0 +1,16 @@
+.admin-page {
+    padding: 2rem;
+    min-height: 60vh;
+    background: var(--bg, #222);
+}
+
+.admin-container {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.admin-title {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    color: #ccc;
+}

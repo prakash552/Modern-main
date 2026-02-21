@@ -6,21 +6,26 @@ import Men from './pages/Men'
 import Women from './pages/Women'
 import Kids from './pages/Kids'
 import ProductDetail from './pages/ProductDetail'
+import Admin from './pages/admin/Admin'
+import AdminLogin from './pages/admin/AdminLogin'
 import Footer from './components/Footer'
-import Cart from './components/Cart'
-import Login from './pages/Login'
-import Register from './pages/Register'
+import Cart from './components/user/Cart'
+import Login from './pages/user/Login'
+import Register from './pages/user/Register'
+import { useAuth } from './context/AuthContext'
 import './App.css'
 
 function App() {
   const location = useLocation();
+  const { isAdmin } = useAuth();
 
   // Jin pages par Navbar aur Footer nahi dikhana unka path yahan add karein
-  const hideLayout = location.pathname === '/login' || location.pathname === '/register';
+  const noLayoutPaths = ['/login', '/register', '/admin/login'];
+  const hideLayout = noLayoutPaths.includes(location.pathname) || location.pathname.startsWith('/admin');
 
   return (
     <div className="App">
-      {/* Agar login/register page nahi hai, tabhi Navbar aur Cart dikhao */}
+      {/* Agar login/register/admin page nahi hai, tabhi Navbar aur Cart dikhao */}
       {!hideLayout && <Navbar />}
       {!hideLayout && <Cart />}
 
@@ -31,11 +36,16 @@ function App() {
         <Route path="/women" element={<Women />} />
         <Route path="/kids" element={<Kids />} />
         <Route path="/product/:productId" element={<ProductDetail />} />
+
+        {/* Admin Routes */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={isAdmin ? <Admin /> : <AdminLogin />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
 
-      {/* Agar login/register page nahi hai, tabhi Footer dikhao */}
+      {/* Agar login/register/admin page nahi hai, tabhi Footer dikhao */}
       {!hideLayout && <Footer />}
     </div>
   )

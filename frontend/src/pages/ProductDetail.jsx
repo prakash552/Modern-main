@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getAllProducts } from '../data/data';
+import { useProducts } from '../context/ProductContext';
 import { useCart } from '../context/CartContext';
 import './ProductDetail.css';
 
 const ProductDetail = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
+  const { products } = useProducts();
   const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -45,7 +46,6 @@ const ProductDetail = () => {
   };
 
   useEffect(() => {
-    const products = getAllProducts();
     const foundProduct = products.find(p => p.id === parseInt(productId));
     if (foundProduct) {
       setProduct(foundProduct);
@@ -53,7 +53,7 @@ const ProductDetail = () => {
       // Product not found, redirect to home
       navigate('/');
     }
-  }, [productId, navigate]);
+  }, [productId, navigate, products]);
 
   useEffect(() => {
     // reset selected image when product changes

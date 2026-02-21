@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useProducts } from '../context/ProductContext';
 import './Products.css';
-import { getProductsByCategory } from '../data/data';
 
 const Products = ({ category = null }) => {
+  const { getProductsByCategory } = useProducts();
   const [activeCategory, setActiveCategory] = useState(category || 'all');
   const navigate = useNavigate();
   const location = useLocation();

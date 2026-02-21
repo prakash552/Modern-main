@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import './Login.css';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import './AdminLogin.css';
 
-const Login = () => {
+const AdminLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -13,26 +13,28 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const result = login(email, password);
-        if (result.success) {
-            navigate('/');
+        if (result.success && result.role === 'admin') {
+            navigate('/admin');
+        } else if (result.success) {
+            setError('Access Denied: Not an administrator');
         } else {
             setError(result.message);
         }
     };
 
     return (
-        <div className="auth-container">
-            <div className="auth-card">
-                <div className="auth-header">
-                    <h1>WELCOME BACK</h1>
-                    <p>Enter your details to access your account</p>
+        <div className="admin-login-container">
+            <div className="admin-login-card">
+                <div className="admin-login-header">
+                    <h1>ADMIN PORTAL</h1>
+                    <p>Secure access for site administration</p>
                 </div>
-                <form className="auth-form" onSubmit={handleSubmit}>
+                <form className="admin-login-form" onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label>Email Address</label>
+                        <label>Admin Email</label>
                         <input
                             type="email"
-                            placeholder="your@email.com"
+                            placeholder="admin@elevate.com"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
@@ -48,15 +50,15 @@ const Login = () => {
                             required
                         />
                     </div>
-                    {error && <p className="auth-error">{error}</p>}
-                    <button type="submit" className="auth-submit-btn">SIGN IN</button>
+                    {error && <p className="admin-error">{error}</p>}
+                    <button type="submit" className="admin-submit-btn">SIGN IN TO DASHBOARD</button>
                 </form>
-                <div className="auth-footer">
-                    <p>Don't have an account? <Link to="/register">Create one</Link></p>
+                <div className="admin-login-footer">
+                    <p>Restricted Area. Unauthorized access is prohibited.</p>
                 </div>
             </div>
         </div>
     );
 };
 
-export default Login;
+export default AdminLogin;

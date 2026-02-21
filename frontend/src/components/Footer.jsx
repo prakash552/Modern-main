@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import FAQ from './FAQ';
 import './Footer.css';
 
 const Footer = ({ onPageChange }) => {
@@ -16,6 +17,9 @@ const Footer = ({ onPageChange }) => {
 
   return (
     <footer className="footer">
+      {/* FAQ Section Integrated into Footer */}
+      <FAQ />
+
       {/* Main Footer Content */}
       <div className="footer-container">
         <div className="footer-content">
@@ -41,7 +45,7 @@ const Footer = ({ onPageChange }) => {
             <h4 className="footer-title">Quick Links</h4>
             <ul className="footer-links">
               <li><a href="#" onClick={(e) => { e.preventDefault(); onPageChange('home'); }}>Home</a></li>
-              <li><a href="#about" onClick={(e) => { e.preventDefault(); onPageChange('about'); }}>About Us</a></li>
+              <li><a href="/about">About Us</a></li>
               <li><a href="#contact">Contact</a></li>
               <li><a href="#faq">FAQ</a></li>
             </ul>
@@ -51,7 +55,6 @@ const Footer = ({ onPageChange }) => {
           <div className="footer-section">
             <h4 className="footer-title">Collections</h4>
             <ul className="footer-links">
-              <li><a href="#products">Shop All</a></li>
               <li><a href="#men" onClick={(e) => { e.preventDefault(); onPageChange('men'); }}>Men</a></li>
               <li><a href="#women" onClick={(e) => { e.preventDefault(); onPageChange('women'); }}>Women</a></li>
               <li><a href="#kids" onClick={(e) => { e.preventDefault(); onPageChange('kids'); }}>Kids</a></li>

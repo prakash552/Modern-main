@@ -1,7 +1,6 @@
 /* Products Section */
 .products-section {
   width: 100%;
-  padding: 20px 20px;
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   overflow: hidden;
 }
@@ -15,13 +14,13 @@
 /* Header */
 .products-header {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
   animation: slideInDown 0.6s ease-out;
-  
+
 }
 
 .products-header h2 {
-  font-size: 2.8rem;
+  font-size: 2.1rem !important;
   font-weight: 700;
   background: linear-gradient(135deg, #2D2D2D 0%, #D4A574 100%);
   -webkit-background-clip: text;
@@ -95,6 +94,7 @@
     opacity: 0;
     transform: translateX(20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -181,8 +181,9 @@
 .product-price {
   font-size: 1.1rem;
   font-weight: 800;
-  color: #0e0d0c; /* warm gold accent */
-text-align-last: right;
+  color: #0e0d0c;
+  /* warm gold accent */
+  text-align-last: right;
 }
 
 /* Hide previous extra UI elements to keep layout minimal */
@@ -210,7 +211,7 @@ text-align-last: right;
 }
 
 .quick-view-btn:hover {
- background: linear-gradient(135deg, #2D2D2D 0%, #D4A574 100%);
+  background: linear-gradient(135deg, #2D2D2D 0%, #D4A574 100%);
   color: white;
   transform: translateY(-2px);
 }
@@ -233,6 +234,7 @@ text-align-last: right;
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -244,6 +246,7 @@ text-align-last: right;
     opacity: 0;
     transform: translateY(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -255,6 +258,7 @@ text-align-last: right;
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -379,10 +383,16 @@ text-align-last: right;
 .product-name,
 .product-price,
 .product-stars {
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 @media (hover: none) and (pointer: coarse) {
-  .product-card:hover { transform: none; box-shadow: 0 8px 20px rgba(12,12,12,0.06); }
-  .product-image { transform: none; }
+  .product-card:hover {
+    transform: none;
+    box-shadow: 0 8px 20px rgba(12, 12, 12, 0.06);
+  }
+
+  .product-image {
+    transform: none;
+  }
 }

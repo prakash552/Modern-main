@@ -10,7 +10,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1596362051514-9c6eb48cacb0?w=500&h=600&fit=crop',
       category: 'men',
       rating: 4.5,
-      reviews: 128
+      reviews: 128,
+      sizes: ['S', 'M', 'L', 'XL']
     },
     {
       id: 2,
@@ -20,7 +21,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1542272604-787c62d465d1?w=500&h=600&fit=crop',
       category: 'men',
       rating: 4.8,
-      reviews: 256
+      reviews: 256,
+      sizes: ['30', '32', '34', '36', '38']
     },
     {
       id: 3,
@@ -30,7 +32,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1505025114519-68f164cc629f?w=500&h=600&fit=crop',
       category: 'men',
       rating: 4.6,
-      reviews: 89
+      reviews: 89,
+      sizes: ['38', '40', '42', '44']
     },
     {
       id: 4,
@@ -40,7 +43,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=600&fit=crop',
       category: 'men',
       rating: 4.4,
-      reviews: 312
+      reviews: 312,
+      sizes: ['S', 'M', 'L', 'XL', 'XXL']
     },
     {
       id: 5,
@@ -50,7 +54,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1552062407-98eeb64c6a62?w=500&h=600&fit=crop',
       category: 'men',
       rating: 4.3,
-      reviews: 175
+      reviews: 175,
+      sizes: ['M', 'L', 'XL']
     },
     {
       id: 6,
@@ -60,7 +65,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=600&fit=crop',
       category: 'men',
       rating: 4.7,
-      reviews: 203
+      reviews: 203,
+      sizes: ['S', 'M', 'L', 'XL']
     },
     {
       id: 7,
@@ -70,7 +76,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1593030103066-0093718efeb9?w=500&h=600&fit=crop',
       category: 'men',
       rating: 4.5,
-      reviews: 142
+      reviews: 142,
+      sizes: ['S', 'M', 'L', 'XL']
     },
     {
       id: 8,
@@ -80,7 +87,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1554469442-5ad3b0d6f035?w=500&h=600&fit=crop',
       category: 'men',
       rating: 4.6,
-      reviews: 98
+      reviews: 98,
+      sizes: ['30', '32', '34', '36']
     }
   ],
   women: [
@@ -92,7 +100,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1609761226913-8582bbd58196?w=500&h=600&fit=crop',
       category: 'women',
       rating: 4.9,
-      reviews: 423
+      reviews: 423,
+      sizes: ['FS']
     },
     {
       id: 10,
@@ -102,7 +111,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1617655636714-eea148f27b0f?w=500&h=600&fit=crop',
       category: 'women',
       rating: 4.7,
-      reviews: 267
+      reviews: 267,
+      sizes: ['S', 'M', 'L', 'XL']
     },
     {
       id: 11,
@@ -112,7 +122,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1611262588024-d12b9c4a0ec7?w=500&h=600&fit=crop',
       category: 'women',
       rating: 4.8,
-      reviews: 156
+      reviews: 156,
+      sizes: ['S', 'M', 'L']
     },
     {
       id: 12,
@@ -122,7 +133,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500&h=600&fit=crop',
       category: 'women',
       rating: 4.6,
-      reviews: 189
+      reviews: 189,
+      sizes: ['S', 'M', 'L', 'XL']
     },
     {
       id: 13,
@@ -132,7 +144,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1534030347209-467a5b0ad3e6?w=500&h=600&fit=crop',
       category: 'women',
       rating: 4.7,
-      reviews: 201
+      reviews: 201,
+      sizes: ['XS', 'S', 'M', 'L']
     },
     {
       id: 14,
@@ -142,7 +155,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1572804013335-90ac718d3e33?w=500&h=600&fit=crop',
       category: 'women',
       rating: 4.8,
-      reviews: 134
+      reviews: 134,
+      sizes: ['S', 'M', 'L']
     },
     {
       id: 15,
@@ -152,7 +166,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1605733513597-a8f8341084e6?w=500&h=600&fit=crop',
       category: 'women',
       rating: 4.5,
-      reviews: 178
+      reviews: 178,
+      sizes: ['S', 'M', 'L', 'XL']
     },
     {
       id: 16,
@@ -162,7 +177,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1598171702490-10c88a94a1c0?w=500&h=600&fit=crop',
       category: 'women',
       rating: 4.4,
-      reviews: 212
+      reviews: 212,
+      sizes: ['S', 'M', 'L']
     }
   ],
   kids: [
@@ -174,7 +190,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1503944583220-9530eb3cb5b0?w=500&h=600&fit=crop',
       category: 'kids',
       rating: 4.6,
-      reviews: 234
+      reviews: 234,
+      sizes: ['2-3Y', '3-4Y', '4-5Y', '5-6Y']
     },
     {
       id: 18,
@@ -184,7 +201,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1624996612033-01f80e987a25?w=500&h=600&fit=crop',
       category: 'kids',
       rating: 4.7,
-      reviews: 178
+      reviews: 178,
+      sizes: ['4-5Y', '5-6Y', '6-7Y']
     },
     {
       id: 19,
@@ -194,7 +212,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1611312449408-fcece7fc2d4b?w=500&h=600&fit=crop',
       category: 'kids',
       rating: 4.5,
-      reviews: 156
+      reviews: 156,
+      sizes: ['5-6Y', '7-8Y', '9-10Y']
     },
     {
       id: 20,
@@ -204,7 +223,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1578993885303-e6d62b0ac36d?w=500&h=600&fit=crop',
       category: 'kids',
       rating: 4.8,
-      reviews: 198
+      reviews: 198,
+      sizes: ['3-4Y', '5-6Y', '7-8Y']
     },
     {
       id: 21,
@@ -214,7 +234,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1595695934161-a7c0b4a3f9e5?w=500&h=600&fit=crop',
       category: 'kids',
       rating: 4.4,
-      reviews: 167
+      reviews: 167,
+      sizes: ['4-5Y', '6-7Y', '8-9Y']
     },
     {
       id: 22,
@@ -224,7 +245,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=600&fit=crop',
       category: 'kids',
       rating: 4.6,
-      reviews: 143
+      reviews: 143,
+      sizes: ['2-4Y', '4-6Y', '6-8Y']
     },
     {
       id: 23,
@@ -234,7 +256,8 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1593030103066-0093718efeb9?w=500&h=600&fit=crop',
       category: 'kids',
       rating: 4.7,
-      reviews: 212
+      reviews: 212,
+      sizes: ['S', 'M', 'L']
     },
     {
       id: 24,
@@ -244,10 +267,35 @@ export const productsData = {
       image: 'https://images.unsplash.com/photo-1554469442-5ad3b0d6f035?w=500&h=600&fit=crop',
       category: 'kids',
       rating: 4.5,
-      reviews: 187
+      reviews: 187,
+      sizes: ['2-3Y', '3-4Y', '4-5Y']
     }
   ]
 };
+
+// FAQ Data
+export const faqData = [
+  {
+    question: "What is the standard shipping time?",
+    answer: "Our standard shipping typically takes 3-5 business days across major cities. For remote areas, it may take 5-7 business days."
+  },
+  {
+    question: "Do you offer international shipping?",
+    answer: "Yes, we ship to over 50 countries worldwide. International shipping times vary between 7-14 business days depending on the location."
+  },
+  {
+    question: "How can I track my order?",
+    answer: "Once your order is shipped, you will receive a tracking link via email and WhatsApp. You can also track it directly on our 'Track Order' page."
+  },
+  {
+    question: "What is your return policy?",
+    answer: "We offer a 30-day easy return and exchange policy. Items must be unworn, with all tags intact and in original packaging."
+  },
+  {
+    question: "Are there any hidden charges?",
+    answer: "No, the price you see at checkout is the final price, including all taxes. We believe in complete transparency."
+  }
+];
 
 // Function to get products by category
 export const getProductsByCategory = (category) => {

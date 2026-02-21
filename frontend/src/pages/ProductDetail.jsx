@@ -10,8 +10,10 @@ const ProductDetail = () => {
   const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [selectedSize, setSelectedSize] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
+  const [error, setError] = useState('');
 
   // Mock additional product details for trust building
   const productDetails = {
@@ -53,6 +55,11 @@ const ProductDetail = () => {
     }
   }, [productId, navigate]);
 
+  useEffect(() => {
+    // reset selected image when product changes
+    setSelectedImage(0);
+  }, [product]);
+
   if (!product) {
     return <div className="loading">Loading...</div>;
   }
@@ -73,11 +80,19 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
-    addToCart(product, quantity);
+    if (product.sizes && product.sizes.length > 0 && !selectedSize) {
+      setError('Please select a size');
+      return;
+    }
+    addToCart({ ...product, selectedSize }, quantity);
   };
 
   const handleBuyNow = () => {
-    addToCart(product, quantity);
+    if (product.sizes && product.sizes.length > 0 && !selectedSize) {
+      setError('Please select a size');
+      return;
+    }
+    addToCart({ ...product, selectedSize }, quantity);
     // You could also navigate directly to a checkout page here if it existed
   };
 
@@ -97,16 +112,37 @@ const ProductDetail = () => {
           {/* Product Images Section */}
           <div className="product-images-section">
             <div className="main-image">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="main-product-image"
-              />
-              {product.originalPrice > product.price && (
-                <div className="discount-badge-large">
-                  -{calculateDiscount(product.price, product.originalPrice)}%
-                </div>
-              )}
+              {/* support product.images array, fall back to single image */}
+              {(() => {
+                const images = product.images || [product.image, product.image, product.image];
+                return (
+                  <>
+                    <img
+                      key={images[selectedImage]}
+                      src={images[selectedImage]}
+                      alt={`${product.name} - view ${selectedImage + 1}`}
+                      className="main-product-image animated-main"
+                    />
+                    {product.originalPrice > product.price && (
+                      <div className="discount-badge-large">
+                        -{calculateDiscount(product.price, product.originalPrice)}%
+                      </div>
+                    )}
+
+                    <div className="thumbnail-row">
+                      {images.slice(0, 3).map((img, i) => (
+                        <img
+                          key={i}
+                          src={img}
+                          alt={`${product.name} thumb ${i + 1}`}
+                          className={`thumbnail ${i === selectedImage ? 'active' : ''}`}
+                          onClick={() => setSelectedImage(i)}
+                        />
+                      ))}
+                    </div>
+                  </>
+                );
+              })()}
             </div>
 
             {/* Trust Badges */}
@@ -161,16 +197,28 @@ const ProductDetail = () => {
             </div>
 
             {/* Size Selector */}
-            <div className="size-selector">
-              <h4>Select Size:</h4>
-              <div className="size-options">
-                {['S', 'M', 'L', 'XL', 'XXL'].map(size => (
-                  <button key={size} className="size-btn">
-                    {size}
-                  </button>
-                ))}
+            {product.sizes && product.sizes.length > 0 && (
+              <div className="size-selector">
+                <div className="size-header">
+                  <h4>Select Size:</h4>
+                  {error && <span className="size-error">{error}</span>}
+                </div>
+                <div className="size-options">
+                  {product.sizes.map(size => (
+                    <button
+                      key={size}
+                      className={`size-btn ${selectedSize === size ? 'active' : ''}`}
+                      onClick={() => {
+                        setSelectedSize(size);
+                        setError('');
+                      }}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Quantity Selector */}
             <div className="quantity-selector">

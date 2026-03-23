@@ -12,20 +12,19 @@ import Footer from './components/Footer'
 import Cart from './components/user/Cart'
 import Login from './pages/user/Login'
 import Register from './pages/user/Register'
+import Orders from './pages/user/Orders'
 import { useAuth } from './context/AuthContext'
 import './App.css'
 
 function App() {
   const location = useLocation();
-  const { isAdmin } = useAuth();
+  const { user, isAdmin } = useAuth();
 
-  // Jin pages par Navbar aur Footer nahi dikhana unka path yahan add karein
   const noLayoutPaths = ['/login', '/register', '/admin/login'];
   const hideLayout = noLayoutPaths.includes(location.pathname) || location.pathname.startsWith('/admin');
 
   return (
     <div className="App">
-      {/* Agar login/register/admin page nahi hai, tabhi Navbar aur Cart dikhao */}
       {!hideLayout && <Navbar />}
       {!hideLayout && <Cart />}
 
@@ -41,11 +40,12 @@ function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={isAdmin ? <Admin /> : <AdminLogin />} />
 
+        {/* User Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/orders" element={user ? <Orders /> : <Login />} />
       </Routes>
 
-      {/* Agar login/register/admin page nahi hai, tabhi Footer dikhao */}
       {!hideLayout && <Footer />}
     </div>
   )

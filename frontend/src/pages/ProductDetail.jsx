@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useProducts } from '../context/ProductContext';
 import { useCart } from '../context/CartContext';
+import FAQ from '../components/FAQ';
 import './ProductDetail.css';
 
 const ProductDetail = () => {
@@ -400,6 +401,9 @@ const ProductDetail = () => {
             </div>
           </div>
         </div>
+
+        {/* FAQ Section specific for Product Details */}
+        <FAQ />
       </div>
     </div>
   );

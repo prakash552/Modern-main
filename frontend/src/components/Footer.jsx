@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import FAQ from './FAQ';
 import './Footer.css';
 
 const Footer = ({ onPageChange }) => {
@@ -17,9 +16,6 @@ const Footer = ({ onPageChange }) => {
 
   return (
     <footer className="footer">
-      {/* FAQ Section Integrated into Footer */}
-      <FAQ />
-
       {/* Main Footer Content */}
       <div className="footer-container">
         <div className="footer-content">

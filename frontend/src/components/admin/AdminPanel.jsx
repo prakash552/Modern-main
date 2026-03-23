@@ -159,14 +159,28 @@ export default function AdminPanel() {
                                     />
                                 </div>
                                 <div className="form-group full-width">
-                                    <label>Image URL</label>
+                                    <label>Product Image Upload</label>
                                     <input
-                                        type="text"
-                                        value={formData.image}
-                                        onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                                        placeholder="Paste Unsplash URL here"
-                                        required
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(e) => {
+                                            const file = e.target.files[0];
+                                            if (file) {
+                                                const reader = new FileReader();
+                                                reader.onloadend = () => {
+                                                    setFormData({ ...formData, image: reader.result });
+                                                };
+                                                reader.readAsDataURL(file);
+                                            }
+                                        }}
+                                        style={{ padding: '0.8rem', border: '1px solid #ddd', borderRadius: '8px', cursor: 'pointer' }}
                                     />
+                                    {formData.image && (
+                                        <div style={{ marginTop: '10px' }}>
+                                            <p style={{ fontSize: '0.85rem', marginBottom: '5px' }}>Image Preview:</p>
+                                            <img src={formData.image} alt="Preview" style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '8px', border: '1px solid #eee' }} />
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="form-group full-width">
                                     <label>Sizes (comma separated)</label>

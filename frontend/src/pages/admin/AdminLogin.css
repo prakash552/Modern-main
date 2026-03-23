@@ -3,103 +3,131 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #0a0a0a;
+    background: #fdfdfd;
+    background-image: radial-gradient(#d4a574 0.5px, transparent 0.5px), radial-gradient(#d4a574 0.5px, #fdfdfd 0.5px);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
     padding: 20px;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
 }
 
 .admin-login-card {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 40px;
-    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    padding: 3.5rem 3rem;
+    border-radius: 4px;
     width: 100%;
     max-width: 450px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
 }
 
 .admin-login-header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 2.5rem;
 }
 
 .admin-login-header h1 {
-    color: #fff;
+    color: #1a1a1a;
     font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
+    font-weight: 300;
+    letter-spacing: 4px;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
 }
 
 .admin-login-header p {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.9rem;
+    color: #666;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .admin-login-form .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 1.5rem;
 }
 
 .admin-login-form label {
     display: block;
-    color: #fff;
-    margin-bottom: 8px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .admin-login-form input {
     width: 100%;
-    padding: 14px 16px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    color: black;
-    font-size: 1rem;
+    padding: 1rem;
+    background: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    color: #1a1a1a;
+    font-size: 0.95rem;
     transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.admin-login-form input::placeholder {
+    color: #aaa;
 }
 
 .admin-login-form input:focus {
     outline: none;
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: #fff;
+    border-color: #D4A574;
+    box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
 }
 
 .admin-error {
-    color: #ff4d4d;
+    background: rgba(220, 53, 69, 0.05);
+    border: 1px solid rgba(220, 53, 69, 0.2);
+    color: #dc3545;
+    padding: 0.75rem;
+    border-radius: 4px;
     font-size: 0.85rem;
-    margin-bottom: 20px;
+    margin-bottom: 1.5rem;
     text-align: center;
 }
 
 .admin-submit-btn {
     width: 100%;
-    padding: 16px;
-    background: #fff;
-    color: #000;
+    padding: 1rem;
+    background: #1a1a1a;
+    color: #D4A574;
     border: none;
-    border-radius: 12px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 1px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .admin-submit-btn:hover {
-    background: #e0e0e0;
+    background: #D4A574;
+    color: #fff;
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px -5px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 15px rgba(212, 165, 116, 0.2);
+}
+
+.admin-submit-btn:active {
+    transform: translateY(0);
 }
 
 .admin-login-footer {
-    margin-top: 30px;
+    margin-top: 2.5rem;
     text-align: center;
+    border-top: 1px solid #eee;
+    padding-top: 1.5rem;
 }
 
 .admin-login-footer p {
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 0.75rem;
+    color: #999;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }

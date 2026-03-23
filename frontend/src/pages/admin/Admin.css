@@ -1,7 +1,9 @@
 .admin-page {
     padding: 2rem;
-    min-height: 60vh;
-    background: var(--bg, #222);
+    min-height: 100vh;
+    background: #fafafa;
+    color: #1a1a1a;
+    font-family: 'Inter', system-ui, sans-serif;
 }
 
 .admin-container {
@@ -10,7 +12,21 @@
 }
 
 .admin-title {
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-    color: #ccc;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+    position: relative;
+    display: inline-block;
+}
+
+.admin-title::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 40%;
+    height: 3px;
+    background: #D4A574;
 }

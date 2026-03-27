@@ -1,3 +1,4 @@
+import MyChatBot from './components/MyChatBot'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
@@ -47,6 +48,7 @@ function App() {
       </Routes>
 
       {!hideLayout && <Footer />}
+      {!hideLayout && <MyChatBot />}
     </div>
   )
 }

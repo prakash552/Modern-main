@@ -46,9 +46,25 @@ export default function Video() {
 
           {/* Video Content Text */}
           <div className="video-content">
-            <h2 className="video-title">ELEVATE YOUR STYLE</h2>
-            <p className="video-subtitle">Experience the Art of Fashion</p>
-            <button className="video-cta">EXPLORE COLLECTION</button>
+            <div className="video-header">
+              <span className="video-tag">LIMITLESS EXPLORATION</span>
+              <div className="tag-line"></div>
+            </div>
+            <h2 className="video-title">
+              <span>BEYOND</span>
+              <span>BOUNDARIES</span>
+            </h2>
+            <p className="video-subtitle">Defining the future of contemporary fashion through visual storytelling.</p>
+            <div className="video-cta-wrapper">
+              <button className="video-cta">
+                <span className="cta-text">DISCOVER THE FILM</span>
+                <span className="cta-icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+            </div>
           </div>
 
           {/* Custom Controls */}

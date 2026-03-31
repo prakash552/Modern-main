@@ -378,6 +378,26 @@
   color: #ff4d4d !important;
 }
 
+/* Theme Toggle */
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: var(--nav-text);
+  font-size: 1.2rem;
+  border-radius: 50%;
+  transition: var(--nav-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  background: rgba(0, 0, 0, 0.05);
+  transform: scale(1.1);
+}
+
 /* ======== MOBILE MENU ======== */
 .menu-toggle {
   display: none;
@@ -395,7 +415,7 @@
 
 @media (max-width: 1024px) {
   .navbar-container {
-    padding: 0 rem;
+    padding: 0;
   }
 }
 

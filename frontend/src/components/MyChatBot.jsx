@@ -34,7 +34,22 @@ const MyChatBot = () => {
                 }
                 return "Namaste! Main Elevate AI assistant hoon. Main aapki kaise madad kar sakta hoon?";
             },
-            options: ["Men Collection", "Women Collection", "Latest Arrival", "Latest FAQ", "Style Tips"],
+            form: {
+                title: "Choose an option",
+                inputs: [
+                    {
+                        id: "choice",
+                        type: "select",
+                        options: [
+                            { value: "Men Collection", label: "Men Collection" },
+                            { value: "Women Collection", label: "Women Collection" },
+                            { value: "Latest Arrival", label: "Latest Arrival" },
+                            { value: "Latest FAQ", label: "Latest FAQ" },
+                            { value: "Style Tips", label: "Style Tips" }
+                        ]
+                    }
+                ]
+            },
             path: (params) => {
                 if (params.userInput) {
                     return "loop";
@@ -44,7 +59,7 @@ const MyChatBot = () => {
         },
         loop: {
             message: async (params) => {
-                const userMessage = params.userInput;
+                const userMessage = params.userInput.choice || params.userInput;
 
                 try {
                     const response = await callGeminiAPI(userMessage, products);

@@ -3,3 +3,70 @@
     margin: 0;
     box-sizing: border-box;
 }
+
+html, body, #root {
+    min-height: 100%;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+    background-color: #f8f8f8;
+    color: #1a1a1a;
+}
+
+/* Dark Mode Styles */
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode body,
+.dark-mode #root,
+.dark-mode .App {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode .navbar {
+    --nav-bg: rgba(30, 30, 30, 0.98);
+    --nav-text: #ffffff;
+    background: var(--nav-bg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .navbar.scrolled {
+    background: var(--nav-bg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .nav-link {
+    color: #ffffff;
+}
+
+.dark-mode .logo {
+    color: #ffffff;
+}
+
+.dark-mode .search-form input {
+    background: #1e1e1e;
+    color: #ffffff;
+    border: 1px solid #333;
+}
+
+.dark-mode .search-form input::placeholder {
+    color: #cccccc;
+}
+
+.dark-mode .icon {
+    color: #ffffff;
+}
+
+.dark-mode .user-name {
+    color: #ffffff;
+}
+
+.dark-mode .login-text {
+    color: #ffffff;
+}
+
+/* Add more dark mode styles for other components as needed */

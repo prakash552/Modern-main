@@ -1,14 +1,16 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom'; // Link import kiya
-import { IoSearch, IoBagHandle, IoPersonCircle, IoMenu, IoClose } from 'react-icons/io5';
+import { IoSearch, IoBagHandle, IoPersonCircle, IoMenu, IoClose, IoSunny, IoMoon } from 'react-icons/io5';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import './Navbar.css';
 
 export default function Navbar() {
   const navigate = useNavigate();
   const { cartCount, toggleCart } = useCart();
   const { user, logout } = useAuth();
+  const { isDarkMode, toggleTheme } = useTheme();
 
   const [searchActive, setSearchActive] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -104,6 +106,14 @@ export default function Navbar() {
           </div>
 
           <div className="action-icons">
+            <button
+              className="icon-btn theme-toggle"
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+            >
+              {isDarkMode ? <IoSunny /> : <IoMoon />}
+            </button>
+
             <button
               className={`icon-btn search-trigger ${searchActive ? 'hidden' : ''}`}
               onClick={() => setSearchActive(true)}

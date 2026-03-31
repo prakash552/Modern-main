@@ -71,7 +71,7 @@ const Cart = () => {
         }
     };
 
-    const handlePlaceOrder = (e) => {
+    const handlePlaceOrder = async (e) => {
         e.preventDefault();
         
         if (!user) {
@@ -89,22 +89,26 @@ const Cart = () => {
         const advanceAmount = paymentMethod === 'cash' ? (finalTotal * 0.3) : finalTotal;
         const remainingAmount = paymentMethod === 'cash' ? (finalTotal * 0.7) : 0;
         
-        addOrder({
-            items: cart,
-            totalAmount: finalTotal,
+        const success = await addOrder({
+            items: cart.map(item => ({...item, product: item.id || item._id})),
+            total: finalTotal,
             advancePaid: advanceAmount,
             remainingAmount: remainingAmount,
             paymentMethod: paymentMethod,
             address: addressDetails
         });
 
-        // Decrease stock for each item
-        cart.forEach(item => {
-            updateProductStock(item.id, item.quantity);
-        });
+        if (success) {
+            // Decrease stock for each item
+            for (const item of cart) {
+                await updateProductStock(item.id || item._id, item.quantity);
+            }
 
-        // Show success animation screen
-        setIsOrderPlaced(true);
+            // Show success animation screen
+            setIsOrderPlaced(true);
+        } else {
+            alert('Failed to place order. Please try again.');
+        }
     };
 
     const handleCloseSuccess = () => {

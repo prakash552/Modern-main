@@ -8,43 +8,92 @@ export const AuthProvider = ({ children }) => {
         return savedUser ? JSON.parse(savedUser) : null;
     });
 
-    const [orders, setOrders] = useState(() => {
-        const savedOrders = localStorage.getItem('orders');
-        return savedOrders ? JSON.parse(savedOrders) : [];
-    });
+    const [orders, setOrders] = useState([]);
 
     useEffect(() => {
         if (user) {
             localStorage.setItem('user', JSON.stringify(user));
+            fetchOrders();
         } else {
             localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            setOrders([]);
         }
     }, [user]);
 
-    useEffect(() => {
-        localStorage.setItem('orders', JSON.stringify(orders));
-    }, [orders]);
+    const fetchOrders = async () => {
+        if (!user) return;
+        const token = localStorage.getItem('token');
+        try {
+            const url = user.role === 'admin' ? '/api/orders' : '/api/orders/myorders';
+            const res = await fetch(url, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setOrders(data);
+            }
+        } catch (error) {
+            console.error('Error fetching orders:', error);
+        }
+    };
 
-    const login = (email, password) => {
+    const login = async (email, password) => {
         if (email && password) {
-            const isAdmin = email === 'admin@elevate.com' && password === 'admin123';
-            const userData = {
-                email,
-                name: email.split('@')[0],
-                id: Date.now(),
-                role: isAdmin ? 'admin' : 'user'
-            };
-            setUser(userData);
-            return { success: true, role: userData.role };
+            try {
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+                
+                if (res.ok) {
+                    localStorage.setItem('token', data.token);
+                    const userData = {
+                        id: data.id,
+                        email: data.email,
+                        name: data.name,
+                        role: data.role
+                    };
+                    setUser(userData);
+                    return { success: true, role: userData.role };
+                } else {
+                    return { success: false, message: data.message || 'Invalid credentials' };
+                }
+            } catch (error) {
+                return { success: false, message: 'Server error' };
+            }
         }
         return { success: false, message: 'Invalid credentials' };
     };
 
-    const register = (name, email, password) => {
+    const register = async (name, email, password) => {
         if (name && email && password) {
-            const userData = { name, email, id: Date.now(), role: 'user' };
-            setUser(userData);
-            return { success: true, role: userData.role };
+            try {
+                const res = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+                const data = await res.json();
+                
+                if (res.ok) {
+                    localStorage.setItem('token', data.token);
+                    const userData = {
+                        id: data.id,
+                        email: data.email,
+                        name: data.name,
+                        role: data.role
+                    };
+                    setUser(userData);
+                    return { success: true, role: userData.role };
+                } else {
+                    return { success: false, message: data.message || 'Registration failed' };
+                }
+            } catch (error) {
+                return { success: false, message: 'Server error' };
+            }
         }
         return { success: false, message: 'Please fill all fields' };
     };
@@ -53,27 +102,41 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
-    const addOrder = (orderData) => {
+    const addOrder = async (orderData) => {
         if (!user) return false;
-        const newOrder = {
-            ...orderData,
-            id: 'ORD' + Date.now().toString().slice(-4),
-            userId: user.id,
-            date: new Date().toISOString(),
-            status: 'Processing'
-        };
-        setOrders(prev => [newOrder, ...prev]);
-        return true;
+        try {
+            const token = localStorage.getItem('token');
+            const res = await fetch('/api/orders', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(orderData)
+            });
+            if (res.ok) {
+                const newOrder = await res.json();
+                setOrders(prev => [newOrder, ...prev]);
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.error('Error adding order:', error);
+            return false;
+        }
     };
 
     const getUserOrders = () => {
+        // Handled by fetchOrders for both admin/user, but we can filter just in case
         if (!user) return [];
-        return orders.filter(o => o.userId === user.id);
+        if (user.role === 'admin') return orders;
+        return orders.filter(o => o.user === user.id || (o.user && o.user.id === user.id) || o.userId === user.id);
     };
 
-    const updateOrderStatus = (orderId, status) => {
+    const updateOrderStatus = async (orderId, status) => {
+        // Not implemented in DB currently, but updating locally for UI
         setOrders(prev => prev.map(order => 
-            order.id === orderId ? { ...order, status } : order
+            (order.id === orderId || order._id === orderId) ? { ...order, status } : order
         ));
     };
 
@@ -86,7 +149,7 @@ export const AuthProvider = ({ children }) => {
             logout, 
             addOrder, 
             getUserOrders,
-            orders, // Exposing all orders for admin
+            orders,
             updateOrderStatus
         }}>
             {children}

@@ -1,61 +1,94 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { productsData as initialProductsData } from '../data/data';
 
 const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
-    const [products, setProducts] = useState(() => {
-        const savedProducts = localStorage.getItem('products');
-        if (savedProducts) {
-            return JSON.parse(savedProducts);
-        }
-        // Flatten initial data and add initial stock, description, and specs
-        return [
-            ...initialProductsData.men.map(p => ({ 
-                ...p, 
-                stock: p.stock || 10,
-                description: p.description || 'Premium quality product crafted for comfort and style.',
-                specifications: p.specifications || { material: 'Cotton', care: 'Machine wash', fit: 'Regular' }
-            })),
-            ...initialProductsData.women.map(p => ({ 
-                ...p, 
-                stock: p.stock || 10,
-                description: p.description || 'Elegant and comfortable piece for your collection.',
-                specifications: p.specifications || { material: 'Silk Blend', care: 'Hand wash', fit: 'Slim' }
-            })),
-            ...initialProductsData.kids.map(p => ({ 
-                ...p, 
-                stock: p.stock || 10,
-                description: p.description || 'Soft and durable clothing for kids.',
-                specifications: p.specifications || { material: 'Organic Cotton', care: 'Machine wash', fit: 'Relaxed' }
-            }))
-        ];
-    });
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        localStorage.setItem('products', JSON.stringify(products));
-    }, [products]);
+        fetchProducts();
+    }, []);
 
-    const addProduct = (product) => {
-        const newProduct = {
-            ...product,
-            id: Date.now(),
-            rating: 0,
-            reviews: 0,
-            stock: Number(product.stock) || 0
-        };
-        setProducts(prev => [...prev, newProduct]);
-        return { success: true };
+    const fetchProducts = async () => {
+        try {
+            const res = await fetch('/api/products');
+            const data = await res.json();
+            if (res.ok) {
+                setProducts(data);
+            }
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        } finally {
+            setLoading(false);
+        }
     };
 
-    const editProduct = (id, updatedProduct) => {
-        setProducts(prev => prev.map(p => p.id === id ? { ...p, ...updatedProduct } : p));
-        return { success: true };
+    const addProduct = async (product) => {
+        try {
+            const token = localStorage.getItem('token');
+            const res = await fetch('/api/products', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(product)
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setProducts(prev => [...prev, data]);
+                return { success: true };
+            }
+            return { success: false, message: data.message };
+        } catch (error) {
+            console.error('Error adding product:', error);
+            return { success: false, message: 'Server error' };
+        }
     };
 
-    const deleteProduct = (id) => {
-        setProducts(prev => prev.filter(p => p.id !== id));
-        return { success: true };
+    const editProduct = async (id, updatedProduct) => {
+        try {
+            const token = localStorage.getItem('token');
+            const res = await fetch(`/api/products/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(updatedProduct)
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setProducts(prev => prev.map(p => p.id === id ? data : p));
+                return { success: true };
+            }
+            return { success: false, message: data.message };
+        } catch (error) {
+            console.error('Error editing product:', error);
+            return { success: false, message: 'Server error' };
+        }
+    };
+
+    const deleteProduct = async (id) => {
+        try {
+            const token = localStorage.getItem('token');
+            const res = await fetch(`/api/products/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (res.ok) {
+                setProducts(prev => prev.filter(p => p.id !== id));
+                return { success: true };
+            }
+            const data = await res.json();
+            return { success: false, message: data.message };
+        } catch (error) {
+            console.error('Error deleting product:', error);
+            return { success: false, message: 'Server error' };
+        }
     };
 
     const getProductsByCategory = (category) => {
@@ -63,15 +96,17 @@ export const ProductProvider = ({ children }) => {
         return products.filter(p => p.category === category);
     };
 
-    const updateProductStock = (id, quantity) => {
-        setProducts(prev => prev.map(p => 
-            p.id === id ? { ...p, stock: Math.max(0, p.stock - quantity) } : p
-        ));
+    const updateProductStock = async (id, quantity) => {
+        const product = products.find(p => p.id === id);
+        if (!product) return;
+        const newStock = Math.max(0, product.stock - quantity);
+        await editProduct(id, { stock: newStock });
     };
 
     return (
         <ProductContext.Provider value={{
             products,
+            loading,
             addProduct,
             editProduct,
             deleteProduct,

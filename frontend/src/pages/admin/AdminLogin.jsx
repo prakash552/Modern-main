@@ -10,9 +10,9 @@ const AdminLogin = () => {
     const { login } = useAuth();
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const result = login(email, password);
+        const result = await login(email, password);
         if (result.success && result.role === 'admin') {
             navigate('/admin');
         } else if (result.success) {

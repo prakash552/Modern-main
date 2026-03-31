@@ -83,6 +83,12 @@ const Products = ({ category = null }) => {
               <div className="product-info product-info--luxury">
                 <h3 className="product-name">{product.name}</h3>
                 {renderStars(product.rating)}
+                
+                {/* Stock Status Badge */}
+                <div className={`stock-status-main ${product.stock === 0 ? 'out' : product.stock <= 5 ? 'low' : 'in'}`}>
+                  {product.stock === 0 ? 'Out of Stock' : product.stock <= 5 ? `Only ${product.stock} left!` : 'In Stock'}
+                </div>
+                
                 <div className="product-price">₹{product.price.toLocaleString()}</div>
               </div>
             </div>

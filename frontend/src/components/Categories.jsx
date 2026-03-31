@@ -49,9 +49,8 @@ export default function Categories() {
       <div className="categories-container">
         {/* Section Header */}
         <div className="section-header">
-          <span className="section-tag">CURATED SELECTION</span>
+  
           <h2 className="section-title">THE COLLECTIONS</h2>
-          <div className="title-underline"></div>
           <p className="section-subtitle">Redefining modern elegance through mindful design and exceptional craftsmanship.</p>
         </div>
 

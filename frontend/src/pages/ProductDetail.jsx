@@ -17,34 +17,7 @@ const ProductDetail = () => {
   const [activeTab, setActiveTab] = useState('description');
   const [error, setError] = useState('');
 
-  // Mock additional product details for trust building
-  const productDetails = {
-    1: {
-      material: '100% Premium Cotton',
-      care: 'Machine wash cold, tumble dry low',
-      fit: 'Regular fit',
-      features: ['Breathable fabric', 'Button-down collar', 'Chest pocket'],
-      sizeGuide: 'Refer to size chart below',
-      warranty: '30-day satisfaction guarantee'
-    },
-    2: {
-      material: '98% Cotton, 2% Elastane',
-      care: 'Machine wash in cold water, line dry',
-      fit: 'Slim fit',
-      features: ['Stretch fabric', 'Five-pocket design', 'Button fly'],
-      sizeGuide: 'Refer to size chart below',
-      warranty: '30-day satisfaction guarantee'
-    },
-    3: {
-      material: 'Wool blend fabric',
-      care: 'Dry clean only',
-      fit: 'Tailored fit',
-      features: ['Two-button closure', 'Lined interior', 'Side vents'],
-      sizeGuide: 'Refer to size chart below',
-      warranty: '30-day satisfaction guarantee'
-    }
-    // Add more product details as needed
-  };
+  // productDetails mock removed to use dynamic context data
 
   useEffect(() => {
     const foundProduct = products.find(p => p.id === parseInt(productId));
@@ -97,7 +70,7 @@ const ProductDetail = () => {
     // You could also navigate directly to a checkout page here if it existed
   };
 
-  const productInfo = productDetails[product.id] || {};
+    // productDetails mock mapping removed
 
   return (
     <div className="product-detail-page">
@@ -186,6 +159,12 @@ const ProductDetail = () => {
               </span>
             </div>
 
+            {/* Stock Status Badge */}
+            <div className={`stock-status-detail ${product.stock === 0 ? 'out' : product.stock <= 5 ? 'low' : 'in'}`}>
+                <span className="stock-dot"></span>
+                {product.stock === 0 ? 'Out of Stock' : product.stock <= 5 ? `Only ${product.stock} units left in stock!` : 'In Stock & Ready to Ship'}
+            </div>
+
             {/* Product Highlights */}
             <div className="product-highlights">
               <h3>Why You'll Love It:</h3>
@@ -228,13 +207,15 @@ const ProductDetail = () => {
                 <button
                   className="qty-btn"
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  disabled={product.stock === 0}
                 >
                   -
                 </button>
-                <span className="qty-display">{quantity}</span>
+                <span className="qty-display">{product.stock === 0 ? 0 : quantity}</span>
                 <button
                   className="qty-btn"
-                  onClick={() => setQuantity(quantity + 1)}
+                  onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
+                  disabled={product.stock === 0 || quantity >= product.stock}
                 >
                   +
                 </button>
@@ -243,10 +224,18 @@ const ProductDetail = () => {
 
             {/* Action Buttons */}
             <div className="action-buttons">
-              <button className="add-to-cart-btn-large" onClick={handleAddToCart}>
-                Add to Cart
+              <button 
+                className={`add-to-cart-btn-large ${product.stock === 0 ? 'disabled' : ''}`} 
+                onClick={handleAddToCart}
+                disabled={product.stock === 0}
+              >
+                {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
               </button>
-              <button className="buy-now-btn" onClick={handleBuyNow}>
+              <button 
+                className={`buy-now-btn ${product.stock === 0 ? 'disabled' : ''}`} 
+                onClick={handleBuyNow}
+                disabled={product.stock === 0}
+              >
                 Buy Now
               </button>
             </div>
@@ -277,43 +266,23 @@ const ProductDetail = () => {
               <div className="tab-content">
                 {activeTab === 'description' && (
                   <div className="tab-panel">
-                    <p>
-                      Experience premium comfort and style with our {product.name}.
-                      Crafted with attention to detail and quality materials, this product
-                      is designed to elevate your {product.category} wardrobe.
-                    </p>
-                    <p>
-                      Perfect for any occasion, this piece combines functionality with
-                      contemporary design to keep you looking and feeling your best.
-                    </p>
+                    <p>{product.description || 'No description available for this product.'}</p>
                   </div>
                 )}
 
                 {activeTab === 'specifications' && (
                   <div className="tab-panel">
                     <div className="specifications-grid">
-                      <div className="spec-item">
-                        <span className="spec-label">Material:</span>
-                        <span className="spec-value">{productInfo.material || 'Premium fabric'}</span>
-                      </div>
-                      <div className="spec-item">
-                        <span className="spec-label">Care Instructions:</span>
-                        <span className="spec-value">{productInfo.care || 'Follow standard care guidelines'}</span>
-                      </div>
-                      <div className="spec-item">
-                        <span className="spec-label">Fit:</span>
-                        <span className="spec-value">{productInfo.fit || 'Standard fit'}</span>
-                      </div>
-                      <div className="spec-item">
-                        <span className="spec-label">Features:</span>
-                        <span className="spec-value">
-                          {productInfo.features ? productInfo.features.join(', ') : 'Premium quality'}
-                        </span>
-                      </div>
-                      <div className="spec-item">
-                        <span className="spec-label">Warranty:</span>
-                        <span className="spec-value">{productInfo.warranty || 'Standard warranty'}</span>
-                      </div>
+                      {product.specifications && Object.entries(product.specifications).length > 0 ? (
+                        Object.entries(product.specifications).map(([key, value]) => (
+                          <div key={key} className="spec-item">
+                            <span className="spec-label">{key}:</span>
+                            <span className="spec-value">{value}</span>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="no-specs">No specifications provided.</div>
+                      )}
                     </div>
                   </div>
                 )}

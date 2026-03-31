@@ -71,8 +71,24 @@ export const AuthProvider = ({ children }) => {
         return orders.filter(o => o.userId === user.id);
     };
 
+    const updateOrderStatus = (orderId, status) => {
+        setOrders(prev => prev.map(order => 
+            order.id === orderId ? { ...order, status } : order
+        ));
+    };
+
     return (
-        <AuthContext.Provider value={{ user, isAdmin: user?.role === 'admin', login, register, logout, addOrder, getUserOrders }}>
+        <AuthContext.Provider value={{ 
+            user, 
+            isAdmin: user?.role === 'admin', 
+            login, 
+            register, 
+            logout, 
+            addOrder, 
+            getUserOrders,
+            orders, // Exposing all orders for admin
+            updateOrderStatus
+        }}>
             {children}
         </AuthContext.Provider>
     );

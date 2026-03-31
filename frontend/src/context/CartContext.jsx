@@ -13,7 +13,14 @@ export const useCart = () => {
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState(() => {
         const savedCart = localStorage.getItem('cart');
-        return savedCart ? JSON.parse(savedCart) : [];
+        if (!savedCart) return [];
+        try {
+            const parsed = JSON.parse(savedCart);
+            return Array.isArray(parsed) ? parsed : [];
+        } catch {
+            console.warn('CartContext: failed to parse saved cart, falling back to []');
+            return [];
+        }
     });
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [coupon, setCoupon] = useState(null);
@@ -84,14 +91,17 @@ export const CartProvider = ({ children }) => {
         setCouponError('');
     };
 
+    // Force cart to be array for calculations (handles malformed state from localStorage)
+    const safeCart = Array.isArray(cart) ? cart : [];
+
     // Calculations
-    const subtotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    const subtotal = safeCart.reduce((total, item) => total + (item.price || 0) * (item.quantity || 0), 0);
     const discountAmount = coupon ? (subtotal * coupon.discount) / 100 : 0;
     const serviceCharge = subtotal > 0 ? 99 : 0; // Flat service/shipping fee
     const taxRate = 0.12; // 12% GST
     const taxAmount = (subtotal - discountAmount) * taxRate;
     const finalTotal = subtotal - discountAmount + serviceCharge + taxAmount;
-    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+    const cartCount = safeCart.reduce((total, item) => total + (item.quantity || 0), 0);
 
     // Free shipping progress logic (example: free over 5000)
     const freeShippingThreshold = 5000;

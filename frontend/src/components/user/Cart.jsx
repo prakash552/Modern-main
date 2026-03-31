@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
+import { useProducts } from '../../context/ProductContext';
 import { IoClose, IoAdd, IoRemove, IoTrashOutline, IoArrowBack } from 'react-icons/io5';
 import './Cart.css';
 
@@ -25,6 +26,7 @@ const Cart = () => {
         freeShippingThreshold
     } = useCart();
 
+    const { updateProductStock } = useProducts();
     const { user, addOrder } = useAuth();
 
     const [couponInput, setCouponInput] = useState('');
@@ -94,6 +96,11 @@ const Cart = () => {
             remainingAmount: remainingAmount,
             paymentMethod: paymentMethod,
             address: addressDetails
+        });
+
+        // Decrease stock for each item
+        cart.forEach(item => {
+            updateProductStock(item.id, item.quantity);
         });
 
         // Show success animation screen

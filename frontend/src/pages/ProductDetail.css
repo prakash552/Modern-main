@@ -254,8 +254,47 @@
 
 .you-save {
   font-size: 0.95rem;
-  color: #b78628;
-  font-weight: 700;
+  color: #15803d;
+  font-weight: 600;
+  display: block;
+  margin-top: 5px;
+}
+
+.stock-status-detail {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.8rem 1.2rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    width: 100%;
+}
+
+.stock-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.stock-status-detail.in { color: #15803d; }
+.stock-status-detail.in .stock-dot { background: #15803d; box-shadow: 0 0 10px rgba(21, 128, 61, 0.4); }
+
+.stock-status-detail.low { color: #c2410c; }
+.stock-status-detail.low .stock-dot { background: #c2410c; box-shadow: 0 0 10px rgba(194, 65, 12, 0.4); }
+
+.stock-status-detail.out { color: #b91c1c; }
+.stock-status-detail.out .stock-dot { background: #b91c1c; box-shadow: 0 0 10px rgba(185, 28, 28, 0.4); }
+
+.add-to-cart-btn-large.disabled, .buy-now-btn.disabled {
+    background: #ccc !important;
+    border-color: #ccc !important;
+    color: #888 !important;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
 }
 
 /* Product Highlights */

@@ -9,11 +9,26 @@ export const ProductProvider = ({ children }) => {
         if (savedProducts) {
             return JSON.parse(savedProducts);
         }
-        // Flatten initial data
+        // Flatten initial data and add initial stock, description, and specs
         return [
-            ...initialProductsData.men,
-            ...initialProductsData.women,
-            ...initialProductsData.kids
+            ...initialProductsData.men.map(p => ({ 
+                ...p, 
+                stock: p.stock || 10,
+                description: p.description || 'Premium quality product crafted for comfort and style.',
+                specifications: p.specifications || { material: 'Cotton', care: 'Machine wash', fit: 'Regular' }
+            })),
+            ...initialProductsData.women.map(p => ({ 
+                ...p, 
+                stock: p.stock || 10,
+                description: p.description || 'Elegant and comfortable piece for your collection.',
+                specifications: p.specifications || { material: 'Silk Blend', care: 'Hand wash', fit: 'Slim' }
+            })),
+            ...initialProductsData.kids.map(p => ({ 
+                ...p, 
+                stock: p.stock || 10,
+                description: p.description || 'Soft and durable clothing for kids.',
+                specifications: p.specifications || { material: 'Organic Cotton', care: 'Machine wash', fit: 'Relaxed' }
+            }))
         ];
     });
 
@@ -26,7 +41,8 @@ export const ProductProvider = ({ children }) => {
             ...product,
             id: Date.now(),
             rating: 0,
-            reviews: 0
+            reviews: 0,
+            stock: Number(product.stock) || 0
         };
         setProducts(prev => [...prev, newProduct]);
         return { success: true };
@@ -47,13 +63,20 @@ export const ProductProvider = ({ children }) => {
         return products.filter(p => p.category === category);
     };
 
+    const updateProductStock = (id, quantity) => {
+        setProducts(prev => prev.map(p => 
+            p.id === id ? { ...p, stock: Math.max(0, p.stock - quantity) } : p
+        ));
+    };
+
     return (
         <ProductContext.Provider value={{
             products,
             addProduct,
             editProduct,
             deleteProduct,
-            getProductsByCategory
+            getProductsByCategory,
+            updateProductStock
         }}>
             {children}
         </ProductContext.Provider>

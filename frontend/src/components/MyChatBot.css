@@ -1,18 +1,20 @@
-/* MyChatBot.css */
 .rcb-bot-container {
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 20px var(--shadow);
     font-family: 'Inter', sans-serif;
+    background: var(--card-bg) !important;
 }
 
 .rcb-header-container {
-    background: linear-gradient(195deg, #eed890 0%, #101110 100%) !important;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%) !important;
 }
 
 .rcb-message-bubble {
     font-size: 13px !important;
     padding: 8px 12px !important;
     line-height: 1.4 !important;
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
 }
 
 /* Quick Replies / Options styling */
@@ -24,9 +26,9 @@
 }
 
 .rcb-option-button {
-    background-color: #fff !important;
-    color: #a09f5aff !important;
-    border: 1px solid #a09f5aff !important;
+    background-color: var(--card-bg) !important;
+    color: var(--accent) !important;
+    border: 1px solid var(--accent) !important;
     border-radius: 20px !important;
     padding: 6px 14px !important;
     font-size: 12px !important;
@@ -36,7 +38,7 @@
 }
 
 .rcb-option-button:hover {
-    background-color: #a09f5aff !important;
-    color: #fff !important;
-    transform: translateY(-2px);
+    background-color: var(--accent) !important;
+    color: var(--card-bg) !important;
+    transform: translateY(-2px) !important;
 }
